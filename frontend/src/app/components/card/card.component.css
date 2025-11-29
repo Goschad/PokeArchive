@@ -1,0 +1,119 @@
+.card {
+  width: 320px;
+  height: 450px;
+  position: relative;
+  border-radius: 12px;
+  /* Bordure extérieure dorée */
+  background: #6b6b6b; /* doré Pokémon */
+  padding: 6px; /* bordure blanche interne */
+  box-sizing: border-box;
+  box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  background: white; /* Blanc TCG intérieur */
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.gloss {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    will-change: opacity;
+    transition: 0.2s opacity ease-out;
+}
+
+.pokemon-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #181a1a;
+}
+
+.pokemon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.pokemon-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  padding: 0 10px;
+  font-size: 0.85rem;
+}
+
+.pokemon-info h2 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    #cdcdcd 0%,
+    #bcbcbc 50%,
+    #c3c3c3 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.2s infinite linear;
+  z-index: 2;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}

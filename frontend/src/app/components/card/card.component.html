@@ -1,0 +1,31 @@
+<div
+  id="card"
+  #cardElement
+  class="card"
+  (mousemove)="onMouseMove($event)"
+  (mouseleave)="onMouseLeave()"
+>
+  <div id="gloss" class="gloss" #gloss></div>
+
+  <!-- intérieur réel de la carte -->
+  <div class="card-inner">
+    
+    <!-- skeleton -->
+    <div
+      class="skeleton"
+      *ngIf="loading || (!imageLoaded && !error)"
+    ></div>
+
+    <!-- contenu Pokémon -->
+    <img
+      class="pokemon-image"
+      *ngIf="pokemonCard"
+      [src]="getImageUrl()"
+      (load)="onImageLoad()"
+      (error)="onImageError()"
+      [class.hidden]="loading || !imageLoaded"
+    />
+  </div>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+</div>

@@ -1,0 +1,100 @@
+/* Conteneur de la navbar */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  margin-top: 16px;
+
+  background: transparent;
+}
+
+/* Bloc blanc principal */
+.nav-content {
+  width: 100%;
+  max-width: 1150px;
+
+  background: #fff;
+  border-radius: 16px;
+
+  padding: 0px 12px 0px 28px;          /* plus de padding vertical */
+  height: 56px;             /* 🔥 FIXE LA HAUTEUR = plus de débordement */
+
+  display: flex;
+  align-items: center;       /* centre verticalement */
+  justify-content: space-between;
+  gap: 80px;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+}
+
+/* Logo + titre */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.nav-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #252525;
+  text-decoration: none;
+}
+
+/* CTA à droite */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;          /* espace propre entre les boutons */
+  margin-left: auto;  /* 🔥 pousse tout le groupe à droite */
+}
+
+.nav-cta {
+  background: #000;
+  color: #fff;
+
+  height: 38px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 2px solid transparent;   /* Pour transition propre */
+  
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+
+  transition: all 0.25s ease;
+}
+
+.nav-cta:hover {
+  background: #fff;                /* Fond blanc */
+  color: #000;                     /* Texte noir */
+  border: 2px solid #000;          /* Bordure noire */
+}
+
+
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nav-title {
+      font-size: 1.2rem;
+  }
+  
+  .nav-cta {
+      padding: 8px 16px;
+  }
+}
