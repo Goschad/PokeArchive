@@ -1,17 +1,16 @@
-
-
 .about {
     width: 100%;
-    height: 85vh;
+    min-height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px 0;
 }
 
 .about-container {
     max-width: 850px;
     width: 90%;
-    margin: 40px auto;
+    margin: 60px auto;   /* marge raisonnable */
     padding: 20px;
     border-radius: 14px;
     background: #ffffff;
@@ -100,8 +99,13 @@ a:hover {
     color: #333;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
+    .about {
+        align-items: flex-start;
+        padding-top: 20px; /* espace suffisant sous la navbar */
+    }
+
     .about-container {
-        margin-top: 140px;
+        margin-top: 0;
     }
 }

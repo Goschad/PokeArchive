@@ -148,4 +148,30 @@ export class CardComponent implements OnInit {
         card.style.transform = '';
     }
 
+    onTouchMove(e: TouchEvent): void {
+        const touch = e.touches[0];
+        if (!touch) return;
+
+        const card = this.cardRef.nativeElement;
+        const rect = card.getBoundingClientRect();
+
+        const x = ((touch.clientX - rect.left) / rect.width) * 100;
+        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+        const centerX = x - 50;
+        const centerY = y - 50;
+
+        const rx = centerY / 3;
+        const ry = -centerX / 3;
+
+        const scale = 1.1; // mobile moins fort
+
+        card.style.transform = `
+            perspective(650px)
+            scale(${scale})
+            rotateX(${rx}deg)
+            rotateY(${ry}deg)
+        `;
+    }
+
 }
