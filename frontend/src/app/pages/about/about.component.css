@@ -10,7 +10,7 @@
 .about-container {
     max-width: 850px;
     width: 90%;
-    margin: 60px auto;   /* marge raisonnable */
+    margin: 60px auto;
     padding: 20px;
     border-radius: 14px;
     background: #ffffff;
@@ -102,7 +102,7 @@ a:hover {
 @media (max-width: 600px) {
     .about {
         align-items: flex-start;
-        padding-top: 20px; /* espace suffisant sous la navbar */
+        padding-top: 20px;
     }
 
     .about-container {

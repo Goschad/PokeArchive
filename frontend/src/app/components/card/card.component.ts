@@ -29,11 +29,60 @@ export class CardComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
+        document.addEventListener(
+            'gesturestart',
+            (e) => e.preventDefault()
+        );
+        
         if (this.cardId)
         {
             this.loadCardById(this.language, this.cardId);
         } 
     }
+
+    // ---------- MOBILE ----------
+
+    blockScroll(event: TouchEvent) {
+        if (event.cancelable) {
+            event.preventDefault();
+        }
+    }
+
+    startTouch(e: TouchEvent) {
+        document.body.style.overflow = 'hidden';
+    }
+
+    onTouchEnd() {
+        document.body.style.overflow = '';
+        this.onMouseLeave();
+    }
+
+    onTouchMove(e: TouchEvent): void {
+        const touch = e.touches[0];
+        if (!touch) return;
+
+        const card = this.cardRef.nativeElement;
+        const rect = card.getBoundingClientRect();
+
+        const x = ((touch.clientX - rect.left) / rect.width) * 100;
+        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+        const centerX = x - 50;
+        const centerY = y - 50;
+
+        const rx = centerY / 3;
+        const ry = -centerX / 3;
+
+        const scale = window.innerWidth < 500 ? 1.03 : 1.1;
+
+        card.style.transform = `
+            perspective(650px)
+            scale(${scale})
+            rotateX(${rx}deg)
+            rotateY(${ry}deg)
+        `;
+    }
+
 
     // ---------- CARD FLIP ----------
 
@@ -132,7 +181,7 @@ export class CardComponent implements OnInit {
         const ry = -centerX / 3;
         const degree = (distance * 20) / distance;
 
-        const scale = window.innerWidth < 500 ? 1.07 : 1.25;
+        const scale = window.innerWidth < 500 ? 1.03 : 1.25;
 
         card.style.transform = `
             perspective(650px)
@@ -147,31 +196,4 @@ export class CardComponent implements OnInit {
         card.style.setProperty('--card-opacity', '0');
         card.style.transform = '';
     }
-
-    onTouchMove(e: TouchEvent): void {
-        const touch = e.touches[0];
-        if (!touch) return;
-
-        const card = this.cardRef.nativeElement;
-        const rect = card.getBoundingClientRect();
-
-        const x = ((touch.clientX - rect.left) / rect.width) * 100;
-        const y = ((touch.clientY - rect.top) / rect.height) * 100;
-
-        const centerX = x - 50;
-        const centerY = y - 50;
-
-        const rx = centerY / 3;
-        const ry = -centerX / 3;
-
-        const scale = 1.1; // mobile moins fort
-
-        card.style.transform = `
-            perspective(650px)
-            scale(${scale})
-            rotateX(${rx}deg)
-            rotateY(${ry}deg)
-        `;
-    }
-
 }

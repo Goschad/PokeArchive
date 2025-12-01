@@ -5,7 +5,6 @@
   margin-top: 40px;
 }
 
-/* CONTENEUR OVALE pokemon */
 .pokemon-search {
   width: 95%;
   max-width: 600px;
@@ -24,14 +23,12 @@
   border: 1px solid #ddd;
 }
 
-/* Hover comme pokemon */
 .pokemon-search:hover {
   box-shadow: 
       0 1px 6px rgba(0,0,0,0.15),
       0 4px 20px rgba(0,0,0,0.12);
 }
 
-/* LOUPE */
 .search-icon {
   color: #777;
   margin-right: 10px;
@@ -39,7 +36,6 @@
   align-items: center;
 }
 
-/* INPUT pokemon */
 .pokemon-input {
   flex: 1;
   font-size: 1rem;
@@ -50,12 +46,10 @@
   padding: 6px 0;
 }
 
-/* Placeholder style pokemon */
 .pokemon-input::placeholder {
   color: #777;
 }
 
-/* Focus */
 .pokemon-input:focus {
   outline: none;
 }

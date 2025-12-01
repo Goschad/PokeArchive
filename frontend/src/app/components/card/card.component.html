@@ -2,10 +2,11 @@
     id="card"
     #cardElement
     class="card"
+    (touchstart)="startTouch($event)"
+    (touchmove)="onTouchMove($event); blockScroll($event)"
+    (touchend)="onTouchEnd()"
     (mousemove)="onMouseMove($event)"
     (mouseleave)="onMouseLeave()"
-    (touchmove)="onTouchMove($event)"
-    (touchend)="onMouseLeave()"
     (click)="toggleFlip()"
 >
 
