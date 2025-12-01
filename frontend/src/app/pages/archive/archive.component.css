@@ -1,0 +1,52 @@
+.archive {
+    width: 100%;
+}
+
+.scroll-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.scroll-top.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-top:hover {
+    background: #262626;
+}
+
+.icon {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}

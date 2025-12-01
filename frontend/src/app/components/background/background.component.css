@@ -1,0 +1,11 @@
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        radial-gradient(circle, rgba(30,32,54,0.35) 1px, transparent 0) 0 0 / 20px 20px,
+        #f5f5f7;
+
+
+}

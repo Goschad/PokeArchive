@@ -1,100 +1,204 @@
 /* Conteneur de la navbar */
 .navbar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  margin-top: 16px;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-  background: transparent;
+    top: 0;
+    margin-top: 20px;
+    padding-top: 20px;
+
+    background: transparent;
+    
 }
 
-/* Bloc blanc principal */
 .nav-content {
-  width: 100%;
-  max-width: 1150px;
+    width: 100%;
+    max-width: 600px;
 
-  background: #fff;
-  border-radius: 16px;
+    background: #fff;
+    border-radius: 999px;
 
-  padding: 0px 12px 0px 28px;          /* plus de padding vertical */
-  height: 56px;             /* 🔥 FIXE LA HAUTEUR = plus de débordement */
+    padding: 0px 12px 0px 28px;
+    height: 56px;
 
-  display: flex;
-  align-items: center;       /* centre verticalement */
-  justify-content: space-between;
-  gap: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
 }
 
-/* Logo + titre */
 .nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-logo-img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
 .nav-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #252525;
-  text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #252525;
+    text-decoration: none;
 }
 
-/* CTA à droite */
 .nav-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;          /* espace propre entre les boutons */
-  margin-left: auto;  /* 🔥 pousse tout le groupe à droite */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
 }
 
 .nav-cta {
-  background: #000;
-  color: #fff;
+    color: #000;
+    height: 38px;
+    padding: 0 18px;
 
-  height: 38px;
-  padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
 
-  border-radius: 10px;
-  border: 2px solid transparent;   /* Pour transition propre */
-  
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  white-space: nowrap;
-
-  transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 .nav-cta:hover {
-  background: #fff;                /* Fond blanc */
-  color: #000;                     /* Texte noir */
-  border: 2px solid #000;          /* Bordure noire */
+    background: #f2f2f2;
+    color: #000;
 }
 
+/* Burger */
 
+.burger {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
 
-/* Responsive */
+.burger-icon .line {
+    transition: 0.25s ease;
+}
+
+.burger.open .top {
+    transform: translateY(5px) rotate(45deg);
+}
+.burger.open .middle {
+    opacity: 0;
+}
+.burger.open .bottom {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Mobile */
+
+.mobile {
+    display: flex;
+    justify-content: center;
+}
+
+.mobile-menu {
+    position: absolute;
+
+    width: 100%;
+    max-width: 1150px;
+
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14);
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 10px 14px;
+    margin-top: 6px;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.mobile-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 9999;
+}
+
+.mobile-link {
+    text-decoration: none;
+    color: #252525;
+    font-size: 0.95rem;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
+.mobile-link:hover {
+    background: #f2f2f2;
+}
+
+@media (min-width: 601px) {
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* ---- Responsive ---- */
 @media (max-width: 600px) {
-  .nav-title {
-      font-size: 1.2rem;
-  }
-  
-  .nav-cta {
-      padding: 8px 16px;
-  }
+    .navbar {
+        padding: 8px 16px;
+    }
+
+    .nav-content {
+        width: 70%;
+        max-width: 1150px;
+        padding: 0 12px;
+        height: 52px;
+        gap: 16px;
+        border-radius: 14px;
+    }
+
+    .nav-title {
+        font-size: 1.2rem;
+    }
+
+    .desktop-nav {
+        display: none;     /* on cache les boutons desktop */
+    }
+
+    .burger {
+        display: flex;     /* on affiche seulement sur mobile */
+    }
+
+    .mobile-menu {
+        width: 65%;
+        max-width: 1150px;
+        margin-inline: auto;
+        padding-inline: 12px;
+    }
 }

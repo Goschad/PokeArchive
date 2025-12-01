@@ -1,22 +1,39 @@
 <nav class="navbar">
-  <div class="nav-content">
-    
-    <!-- Logo -->
-    <div class="nav-left">
-      <img src="/pokeball.svg" alt="logo" class="nav-logo-img" />
-      <a href="#" class="nav-title">PokeLib</a>
+    <div class="nav-content">
+        <!-- Logo + titre -->
+        <div class="nav-left">
+            <img src="pokeball.svg" alt="logo" class="nav-logo-img" />
+            <a class="nav-title" routerLink="/">PokéArchive</a>
+        </div>
+
+        <!-- Liens à droite (desktop) -->
+        <div class="nav-right desktop-nav">
+            <a class="nav-cta" routerLink="/archive">Archive</a>
+            <a class="nav-cta" routerLink="/about">About</a>
+            <a class="nav-cta" routerLink="/login">Login</a>
+        </div>
+
+        <!-- Bouton burger (mobile) -->
+        <button
+            class="burger"
+            type="button"
+            (click)="toggleMenu()"
+            [class.open]="isMenuOpen"
+        >
+            <lucide-icon
+                [img]="Menu"
+                [size]="24"
+                strokeWidth="2.5"
+            ></lucide-icon>
+        </button>
     </div>
 
-    <!-- Bouton à droite -->
-    <div class="nav-right">
-        <a class="nav-cta" href="#">
-            Collection
-        </a>
-
-        <a class="nav-cta" href="#">
-            About
-        </a>
+    <div class="mobile">
+        <div class="mobile-menu" [class.open]="isMenuOpen">
+            <a class="mobile-link" routerLink="/archive" (click)="closeMenu()">Archive</a>
+            <a class="mobile-link" routerLink="/about" (click)="closeMenu()">About</a>
+            <a class="mobile-link" routerLink="/login" (click)="closeMenu()">Login</a>
+        </div>
     </div>
 
-  </div>
 </nav>

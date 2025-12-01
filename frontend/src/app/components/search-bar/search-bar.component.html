@@ -1,0 +1,21 @@
+<div class="search-wrapper">
+    <form (submit)="search()" class="pokemon-search">
+    
+        <span class="search-icon">
+            <lucide-icon
+                [img]="Search"
+                [size]="20"
+                strokeWidth="2"
+            ></lucide-icon>
+        </span>
+
+        <input
+            type="text"
+            [(ngModel)]="query"
+            name="query"
+            placeholder="Search Pokemon cards..."
+            class="pokemon-input"
+        />
+    
+    </form>
+</div>

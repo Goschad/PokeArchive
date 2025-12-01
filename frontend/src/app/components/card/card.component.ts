@@ -1,9 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  OnInit
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -15,27 +10,38 @@ import { environment } from '../../../environments/environment';
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
+
 export class CardComponent implements OnInit {
     @ViewChild('cardElement') cardRef!: ElementRef<HTMLDivElement>;
-    @ViewChild('gloss') glossRef!: ElementRef<HTMLDivElement>;
+    @ViewChild('glare') glareRef!: ElementRef<HTMLDivElement>;
 
     pokemonCard: any = null;
-    loading = true;          // chargement des données API
-    imageLoaded = false;     // chargement de l'image
+    loading = true;
+    imageLoaded = false;
     error: string | null = null;
+    isFlipped = false;
+    @Input() cardId!: string;
 
-
+    displayImage = '';
     private language = "en";
     private baseUrl = environment.pokemonApiBaseUrl;
 
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
-    console.log('Base URL =', this.baseUrl);
-    this.loadCardById(this.language, 'swsh3-136');
-  }
+        if (this.cardId)
+        {
+            this.loadCardById(this.language, this.cardId);
+        } 
+    }
 
-  // ---------- API TCGDEX ----------
+    // ---------- CARD FLIP ----------
+
+    toggleFlip() {
+        this.isFlipped = !this.isFlipped;
+    }
+
+    // ---------- API TCGDEX ----------
 
     onImageLoad(): void {
         this.imageLoaded = true;
@@ -43,7 +49,8 @@ export class CardComponent implements OnInit {
 
     onImageError(): void {
         this.imageLoaded = false;
-        this.error = "Impossible de charger l'image de la carte.";
+        this.displayImage = 'assets/images/tcg-card-back.jpg';
+        this.error = null;
     }
 
     getImageUrl(): string {
@@ -55,22 +62,26 @@ export class CardComponent implements OnInit {
         this.loading = true;
         this.error = null;
 
-        const url = `${this.baseUrl}/${lang}/cards/${id}`;
-        console.time('loadCard');
-        console.log('Fetching', url);
+        let url = `${this.baseUrl}/${lang}/cards/${id}`;
+
+        if (id === "sm35-1")
+        {
+            this.pokemonCard = null;
+            this.displayImage = `https://images.pokemontcg.io/sm35/1_hires.png`;
+            url = `${this.baseUrl}/${lang}/cards/sm10-33`;
+        }
 
         this.http.get<any>(url).subscribe({
             next: (res) => {
                 this.pokemonCard = res;
+                if (id !== "sm35-1") this.displayImage = this.getImageUrl();
                 this.loading = false;
-                console.timeEnd('loadCard');
             },
             
             error: (err) => {
                 console.error(err);
-                this.error = `Impossible de charger la carte ${id} (${lang}).`;
+                this.error = `Failed to load card image ${id} (${lang}).`;
                 this.loading = false;
-                console.timeEnd('loadCard');
             }
         });
     }
@@ -89,7 +100,6 @@ export class CardComponent implements OnInit {
                 return;
                 }
 
-                // On prend la première carte du résultat
                 this.pokemonCard = res[0];
                 this.loading = false;
             },
@@ -97,50 +107,45 @@ export class CardComponent implements OnInit {
                 this.error = `Error loading cards for "${name}".`;
                 this.loading = false;
             }
-            });
-        }
+        });
+    }
 
     // ---------- EFFET 3D / GLOSS ----------
 
     onMouseMove(e: MouseEvent): void {
         const card = this.cardRef.nativeElement;
-        const gloss = this.glossRef.nativeElement;
+        const rect = card.getBoundingClientRect();
 
-        const pointerX = e.clientX;
-        const pointerY = e.clientY;
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        const cardRect = card.getBoundingClientRect();
+        const centerX = x - 50;
+        const centerY = y - 50;
 
-        const halfWidth = cardRect.width / 2;
-        const halfHeight = cardRect.height / 2;
+        const distance = Math.sqrt(centerX ** 2 + centerY ** 2) / 70;
 
-        const cardCenterX = cardRect.left + halfWidth;
-        const cardCenterY = cardRect.top + halfHeight;
+        card.style.setProperty('--pointer-x', `${x}%`);
+        card.style.setProperty('--pointer-y', `${y}%`);
+        card.style.setProperty('--card-opacity', `${distance}`);
 
-        const deltaX = pointerX - cardCenterX;
-        const deltaY = pointerY - cardCenterY;
+        const rx = centerY / 3;
+        const ry = -centerX / 3;
+        const degree = (distance * 20) / distance;
 
-        const distanceToCenter = Math.sqrt(
-        Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
-        );
+        const scale = window.innerWidth < 500 ? 1.07 : 1.25;
 
-        const maxDistance = Math.max(halfWidth, halfHeight);
-
-        const degree = (distanceToCenter * 10) / maxDistance;
-        const rx = deltaY / halfHeight;
-        const ry = deltaX / halfWidth;
-
-        card.style.transform = `perspective(400px) rotate3d(${-rx}, ${ry}, 0, ${degree}deg)`;
-
-        gloss.style.transform = `translate(${-ry * 100}%, ${-rx * 100}%) scale(2.4)`;
-        gloss.style.opacity = String((distanceToCenter * 0.6) / maxDistance);
+        card.style.transform = `
+            perspective(650px)
+            scale(${scale})
+            rotate3d(${rx}, ${ry}, 0, ${degree}deg)
+        `;
     }
 
     onMouseLeave(): void {
         const card = this.cardRef.nativeElement;
-        const gloss = this.glossRef.nativeElement;
 
+        card.style.setProperty('--card-opacity', '0');
         card.style.transform = '';
-        gloss.style.opacity = '0';
     }
+
 }

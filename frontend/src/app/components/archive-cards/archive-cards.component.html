@@ -1,0 +1,13 @@
+<div class="archive-container">
+    <div class="grid">
+        <app-card
+            *ngFor="let card of visibleCards"
+            [cardId]="card.id"
+        ></app-card>
+    </div>
+
+    <div class="loader" *ngIf="loading">
+        Loading Pokémon cards…
+    </div>
+</div>
+

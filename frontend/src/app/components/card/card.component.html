@@ -1,31 +1,43 @@
 <div
-  id="card"
-  #cardElement
-  class="card"
-  (mousemove)="onMouseMove($event)"
-  (mouseleave)="onMouseLeave()"
+    id="card"
+    #cardElement
+    class="card"
+    (mousemove)="onMouseMove($event)"
+    (mouseleave)="onMouseLeave()"
+    (click)="toggleFlip()"
 >
-  <div id="gloss" class="gloss" #gloss></div>
 
-  <!-- intérieur réel de la carte -->
-  <div class="card-inner">
-    
-    <!-- skeleton -->
-    <div
-      class="skeleton"
-      *ngIf="loading || (!imageLoaded && !error)"
-    ></div>
+    <div class="flip-wrapper" [class.flipped]="isFlipped">
 
-    <!-- contenu Pokémon -->
-    <img
-      class="pokemon-image"
-      *ngIf="pokemonCard"
-      [src]="getImageUrl()"
-      (load)="onImageLoad()"
-      (error)="onImageError()"
-      [class.hidden]="loading || !imageLoaded"
-    />
-  </div>
+        <div class="card-face card-front">
+            <div class="card-inner">
 
-  <div class="error" *ngIf="error">{{ error }}</div>
+                <div class="skeleton" *ngIf="loading"></div>
+
+                <img
+                    class="pokemon-image"
+                    *ngIf="pokemonCard"
+                    [src]="displayImage"
+                    (load)="onImageLoad()"
+                    (error)="onImageError()"
+                    [class.hidden]="loading || !imageLoaded"
+                />
+                <div class="rainbow-shine"></div>
+                <div class="card__glare"></div>
+            </div>
+        </div>
+
+        <div class="card-face card-back">
+            <img
+                class="pokemon-back"
+                src="assets/images/tcg-card-back.jpg"
+                alt="back"
+            />
+            <div class="card__glare"></div>
+        </div>
+    </div>
+
+    <div class="error" *ngIf="error">
+        <p>{{ error }}</p>
+    </div>
 </div>

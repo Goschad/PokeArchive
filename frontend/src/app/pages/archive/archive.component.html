@@ -1,0 +1,14 @@
+<div class="archive">
+    <app-search-bar></app-search-bar>
+    <app-archive-cards></app-archive-cards>
+
+    <button class="scroll-top" (click)="scrollTop()" [class.show]="showButton">
+        <div class="icon">
+            <lucide-icon
+                [img]="ArrowUp"
+                [size]="24"
+                strokeWidth="2.5"
+            ></lucide-icon>
+        </div>
+    </button>
+</div>
